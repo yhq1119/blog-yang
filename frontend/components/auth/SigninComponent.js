@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
-import { signup, isAuth } from '../../actions/auth'
-import Router from 'next/router';
+import { signin, authenticate, isAuth } from '../../actions/auth'
+import Router from 'next/router'
 
-const SignupComponent = () => {
+const SigninComponent = () => {
 
 
     const [values, setValues] = useState({
-        name: 'TestSignUp',
-        email: 'test@signup.com',
+        // name: 'TestSignIn',
+        email: 'test@signin.com',
         password: 'test123',
         error: '',
         loading: false,
@@ -15,7 +15,7 @@ const SignupComponent = () => {
         showForm: true
     })
     const {
-        name,
+        // name,
         email,
         password,
         error,
@@ -24,9 +24,9 @@ const SignupComponent = () => {
         showForm
     } = values
 
-    useEffect(() => {
-        isAuth() && Router.push('/')
-    }, [])
+    useEffect(()=>{
+isAuth() && Router.push('/')
+    },[])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -36,8 +36,11 @@ const SignupComponent = () => {
             loading: true,
             error: false,
         })
-        const user = { name, email, password }
-        signup(user)
+        const user = {
+            // name, 
+            email, password
+        }
+        signin(user)
             .then(data => {
                 if (data.error) {
                     setValues({
@@ -46,18 +49,29 @@ const SignupComponent = () => {
                         loading: false
                     })
                 } else {
-                    setValues({
-                        ...values,
-                        name: '',
-                        email: '',
-                        password: '',
-                        error: '',
-                        loading: false,
-                        message: data.message,
-                        showForm: false
+                    // save user token to cookie
+
+                    // save user info to localStorage
+
+                    // authenticate user
+                    authenticate(data, () => {
+                        Router.push('/')
                     })
+
                 }
             })
+
+
+        // console.table({
+        //     name,
+        //     email,
+        //     password,
+        //     error,
+        //     loading,
+        //     message,
+        //     showForm
+        // })
+
     }
 
     const handleChange = name => e => {
@@ -72,18 +86,18 @@ const SignupComponent = () => {
     const showMessage = () => (message ? <div className='alert alert-info'>{message}</div> : '')
 
 
-    const signupForm = () => {
+    const signinForm = () => {
         return (
             <form onSubmit={handleSubmit}>
                 {/* <h2>SignUp</h2> */}
 
-                <div className='form-group'>
+                {/* <div className='form-group'>
                     <input
                         value={name}
                         onChange={handleChange('name')}
                         type='text' className='form-control'
                         placeholder='Input your name'></input>
-                </div>
+                </div> */}
                 <div className='form-group'>
                     <input
                         value={email}
@@ -98,7 +112,7 @@ const SignupComponent = () => {
                         placeholder='Set password'></input>
                 </div>
                 <div>
-                    <button className='btn btn-primary'>SignUp</button>
+                    <button className='btn btn-primary'>SignIn</button>
                 </div>
             </form>
         )
@@ -110,9 +124,9 @@ const SignupComponent = () => {
             {showError()}
             {showLoading()}
             {showMessage()}
-            {showForm && signupForm()}
+            {showForm && signinForm()}
         </React.Fragment>
     )
 }
 
-export default SignupComponent
+export default SigninComponent

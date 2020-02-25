@@ -21,10 +21,10 @@ router.post(
 
 router.get('/signout', signout)
 // test
-router.get('/secret',requireSignin, (req, res) => {
-    res.json({
-        message: 'You have access to secret page!'
-    })
-})
+// router.get('/secret',requireSignin, (req, res) => {
+//     res.json({
+//         user: req.user
+//     })
+// })
 
 module.exports = router

@@ -4,13 +4,16 @@ import Link from 'next/link'
 
 const Signup = () =>
     <Layout>
-        <h2>SignUp Page</h2>
+        <h2 className='text-center pt-4 pb-4'>SignUp</h2>
+        <div className='row'>
+            <div className='col-md-8 offset-md-2'>
+                <SignupComponent />
+            </div>
+        </div>
 
-        <SignupComponent />
-
-        <Link href='/'>
+        {/* <Link href='/'>
             <a>Home</a>
-        </Link>
+        </Link> */}
     </Layout>
 
 export default Signup
