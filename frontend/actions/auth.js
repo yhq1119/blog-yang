@@ -108,3 +108,16 @@ export const isAuth = () => {
         }
     }
 }
+
+export const handleResponse = response => {
+    if (response.status === 401) {
+        signout(() => {
+            Router.push({
+                pathname: '/signin',
+                query: {
+                    message: 'Your session is expired. Please signin'
+                }
+            });
+        });
+    }
+};

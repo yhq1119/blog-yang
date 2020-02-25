@@ -54,6 +54,7 @@ const Tag = () => {
     const deleteConfirm = slug => {
         let answer = window.confirm('Are you sure you want to delete this Tag?');
         if (answer) {
+            console.log(`sssss${slug}`)
             deleteTag(slug);
         }
     };
