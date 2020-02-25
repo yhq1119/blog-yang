@@ -1,6 +1,6 @@
-.buttonNav {
+/* .buttonNav {
     display: inline-block;
-    padding: 15px 25px;
+    padding: 0 0;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -13,4 +13,8 @@
   
   .buttonNav:active {
     transform: translateY(4px);
+  } */
+
+  #nprogress .bar {
+    height: 5px !important;
   }

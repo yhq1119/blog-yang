@@ -24,9 +24,9 @@ const SigninComponent = () => {
         showForm
     } = values
 
-    useEffect(()=>{
-isAuth() && Router.push('/')
-    },[])
+    useEffect(() => {
+        isAuth() && Router.push('/')
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -55,7 +55,13 @@ isAuth() && Router.push('/')
 
                     // authenticate user
                     authenticate(data, () => {
-                        Router.push('/')
+                        if (isAuth() && isAuth().role === 1) {
+                            Router.push('/admin')
+                        }
+
+                        if (isAuth()) {
+
+                        }
                     })
 
                 }
@@ -76,7 +82,6 @@ isAuth() && Router.push('/')
 
     const handleChange = name => e => {
         setValues({ ...values, error: false, [name]: e.target.value })
-        console.log(e.target.value)
     }
 
     const showLoading = () => (loading ? <div className='alert alert-info'>Loading</div> : '')

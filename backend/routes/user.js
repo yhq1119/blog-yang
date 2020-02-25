@@ -1,16 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const { authMiddleware, requireSignin } = require('../controllers/auth')
+const { authMiddleware,adminMiddleware, requireSignin } = require('../controllers/auth')
 const { read } = require('../controllers/user')
 
 
 
-router.get('/profile',requireSignin,authMiddleware, read)
-// test
-// router.get('/secret',requireSignin, (req, res) => {
-//     res.json({
-//         user: req.user
-//     })
-// })
+router.get('/profile',
+    requireSignin, 
+    authMiddleware, 
+    read)
 
 module.exports = router

@@ -3,11 +3,6 @@ const shortId = require('shortid')
 const jwt = require('jsonwebtoken')
 const expressJwt = require('express-jwt')
 
-exports.read = (req, res) => {
-    req.profile.hashed_password = undefined
-    return res.json(req.profile)
-}
-
 exports.signup = (req, res) => {
     User.findOne({
         email: req.body.email
@@ -128,8 +123,12 @@ exports.adminMiddleware = (req, res, next) => {
             }
 
             if (user.role !== 1) {
-                error: 'Admin resource. Access denied.'
-            } req.profile = user
+                return res.status(400).json({
+                    error: 'Admin resource. Access denied.'
+                })
+            }
+
+            req.profile = user
             next()
         })
 }

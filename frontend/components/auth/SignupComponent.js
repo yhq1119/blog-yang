@@ -62,7 +62,6 @@ const SignupComponent = () => {
 
     const handleChange = name => e => {
         setValues({ ...values, error: false, [name]: e.target.value })
-        console.log(e.target.value)
     }
 
     const showLoading = () => (loading ? <div className='alert alert-info'>Loading</div> : '')
