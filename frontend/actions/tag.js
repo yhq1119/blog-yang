@@ -48,18 +48,15 @@ export const removeTag = (slug, token) => {
     return fetch(`${API}/tag/${slug}`, {
         method: 'DELETE',
         headers: {
-            // Accept: 'application/json',
+            Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(slug)
+        }
     })
         .then(res => {
-            /////////////////////////////////////////////////////
-            console.log(res)
             return res.json()
         })
-        .catch(err =>{
+        .catch(err => {
 
             return err
         }
