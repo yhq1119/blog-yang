@@ -7,6 +7,7 @@ const Category = require('../models/category')
 const Tag = require('../models/tag')
 const { errorHandler} = require('../helpers/dbErrorHandler')
 const fs = require('fs')
+const {smartTrim} = require('../helpers/blog')
 
 
 exports.create = (req,res)=>{
@@ -49,7 +50,8 @@ exports.create = (req,res)=>{
         let blog = new Blog()
         blog.title = title
         blog.body = body
-        blog.slug = slugify(categories).toLowerCase()
+        blog.excerpt = smartTrim(body,process.env.BLOG_EXCERPT_LENGTH," ","...")
+        blog.slug = slugify(title).toLowerCase()
         blog.mtitle = `${title} | ${process.env.APP_NAME}`
         blog.mdesc = stripHtml(body.substring(0,160))
         blog.postedBy = req.user._id
