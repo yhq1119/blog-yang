@@ -82,13 +82,13 @@ exports.create = (req,res)=>{
                     error:errorHandler(err)
                 })
                }else{
-                   Blog.findByIdAndRemove(result._id,{$push:{tags:arrayOfTags}},{new:true}).exec((err,result)=>{
+                   Blog.findByIdAndUpdate(result._id,{$push:{tags:arrayOfTags}},{new:true}).exec((err,result)=>{
                        if(err){
                            return res.status(400).json({
                                error:errorHandler(err)
                            })
                        }else{
-                           
+                           res.json(result)
                        }
                    })
                }
