@@ -16,7 +16,7 @@ const Category = () => {
         success: false,
         categories: [],
         removed: false,
-        reload: false
+        reload: false,
     });
  
     const { name, error, success, categories, removed, reload } = values;
@@ -25,6 +25,10 @@ const Category = () => {
     useEffect(() => {
         loadCategories();
     }, [reload]);
+
+    const timer = (slug) =>{
+        setTimeout(()=> deleteConfirm(slug),1500)
+    }
  
     const loadCategories = () => {
         getCategories().then(data => {
@@ -40,6 +44,8 @@ const Category = () => {
         return categories.map((c, i) => {
             return (
                 <button
+                onTouchEnd={() => deleteConfirm(c.slug)}
+            
                     onDoubleClick={() => deleteConfirm(c.slug)}
                     title="Double click to delete"
                     key={i}
@@ -50,6 +56,8 @@ const Category = () => {
             );
         });
     };
+
+    
  
     const deleteConfirm = slug => {
         let answer = window.confirm('Are you sure you want to delete this category?');
@@ -107,11 +115,16 @@ const Category = () => {
         setValues({ ...values, error: false,success:false ,removed:false});
     };
  
-    const newCategoryFom = () => (
+    const newCategoryForm = () => (
         <form onSubmit={clickSubmit}>
             <div className="form-group">
                 <label className="text-muted">Category</label>
-                <input type="text" className="form-control" onChange={handleChange} value={name} required />
+                <input type="text" 
+                className="form-control" 
+                onChange={handleChange} 
+                value={name} 
+                placeholder='Input here, long press or double click to delete'
+                required />
             </div>
             <div>
                 <button type="submit" className="btn btn-primary">
@@ -127,7 +140,7 @@ const Category = () => {
             {showError()}
             {showRemoved()}
             <div onMouseMove={mouseMoveHandler}>
-                {newCategoryFom()}
+                {newCategoryForm()}
                 {showCategories()}
             </div>
         </React.Fragment>

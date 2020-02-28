@@ -1,20 +1,14 @@
-/* .buttonNav {
-    display: inline-block;
-    padding: 0 0;
-    font-size: 24px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    border: none;
-    border-radius: 15px;
-  }
-  
-  
-  .buttonNav:active {
-    transform: translateY(4px);
-  } */
 
   #nprogress .bar {
     height: 5px !important;
+  }
+
+  .ql-editor {
+    min-height: 300px;
+  }
+
+  .featured-image{
+    width:100%;
+    max-height: 500px;
+    object-fit: cover;
   }

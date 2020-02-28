@@ -40,6 +40,9 @@ const Header = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
+            {<NavLink href='/blogs'>
+              <Button  color='link' >Blogs</Button>
+            </NavLink>}
 
             {
               !isAuth() &&
@@ -47,14 +50,14 @@ const Header = (props) => {
                 <NavItem>
                   <Link href='/signup'>
                     <NavLink>
-                      <Button color='link' class='buttonNav'>SignUp</Button>
+                      <Button color='link'>SignUp</Button>
                     </NavLink>
                   </Link>
                 </NavItem>
                 <NavItem>
                   <Link href='/signin'>
                     <NavLink>
-                      <Button color='link' class='buttonNav'>SignIn</Button>
+                      <Button color='link'>SignIn</Button>
                     </NavLink>
                   </Link>
                 </NavItem>
@@ -80,7 +83,7 @@ const Header = (props) => {
                 <Link href='/admin'>
                   <NavLink>
                     <Button color='link'>
-                    {`${isAuth().name}'s Dashboard`}
+                      {`${isAuth().name}'s Dashboard`}
                     </Button>
                   </NavLink>
                 </Link>
@@ -94,12 +97,13 @@ const Header = (props) => {
                 // <NavItem>
                 // <Link href='/signin'>
                 <NavLink>
-                  <Button class='buttonNav' color='link' onClick={() => signout(() => Router.replace(`/signin`))}>SignOut</Button>
+                  <Button color='link' onClick={() => signout(() => Router.replace(`/signin`))}>SignOut</Button>
                 </NavLink>
                 // </Link>
                 // </NavItem>
               )
             }
+
           </Nav>
         </Collapse>
       </Navbar>

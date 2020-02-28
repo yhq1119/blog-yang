@@ -1,11 +1,12 @@
 import Header from '../components/Header'
+// import Footer from '../components/Footer'
 
-const Layout = ({children}) => {
+
+const Layout = ({ children }) => {
     return (
         <React.Fragment>
             <Header />
             {children}
-            <p>Footer</p>
         </React.Fragment>
     )
 }
