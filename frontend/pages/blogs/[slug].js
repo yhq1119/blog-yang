@@ -1,16 +1,33 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import { useState } from 'react';
-import { listBlogsCategoriesTags, singleBlog } from '../../actions/blog';
+import { useState, useEffect } from 'react';
+import { listBlogsCategoriesTags, singleBlog,listRelated } from '../../actions/blog';
 import Card from '../../components/blog/Card';
 import { API, DOMAIN, APP_NAME } from '../../config';
 import moment from 'moment'
 import renderHtml from 'react-render-html'
 
+
 const SingleBlog = ({ blog }) => {
 
 
+    const [related, setRelated] = useState([])
+
+    const loadRelated = () =>{
+        listRelated({blog})
+        .then(data => {
+            if(data.error){
+                console.log(data.error)
+            }else{
+                setRelated(data);
+            }
+        })
+    }
+
+    useEffect(()=>{
+        loadRelated()
+    },[])
 
     const showBlogCategories = blog => {
         return blog.categories.map((c, i) => (
@@ -68,6 +85,7 @@ const SingleBlog = ({ blog }) => {
                         <h4 className='text-center pt-5 pb-5 h2'>Related blogs</h4>
                         <hr />
                         <p>show related blogs</p>
+                        {JSON.stringify(related)}
                     </div>
 
                     <div className='container pb-5'>

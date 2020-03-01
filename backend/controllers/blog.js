@@ -196,9 +196,9 @@ exports.update = (req, res) => {
             })
         }
 
-        if(oldBlog==null){
+        if (oldBlog == null) {
             return res.status(400).json({
-                error:`Blog [${slug}] not found`
+                error: `Blog [${slug}] not found`
             })
         }
         console.log(oldBlog)
@@ -336,7 +336,7 @@ exports.remove = (req, res) => {
 
         })
 
-} 
+}
 
 exports.photo = (req, res) => {
     const slug = req.params.slug.toLowerCase();
@@ -352,3 +352,22 @@ exports.photo = (req, res) => {
             return res.send(blog.photo.data);
         });
 };
+
+
+exports.listRelated = (req, res) => {
+    let limit = req.body.limit ? parseInt(req.body.limit) : 3
+    const { _id, categories } = req.body
+
+    Blog.find({ _id: { $ne: _id }, categories: { $in: categories } })
+        .limit(limit)
+        .populate('postedBy', '_d name profile')
+        .select('title slug excerpt postedBy createdAt updatedAt')
+        .exec((err, blogs) => {
+            if (err) {
+                return res.status(400).json({
+                    error: 'Blogs not found'
+                })
+            }
+            res.json(blogs)
+        })
+}
